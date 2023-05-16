@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Time HomePage</title>
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<div class="banner">
+  <div class="navbar">
+    <ul>
+      <li><a href="homepage.html.">Home</a></li>
+      <li><a href="Iletisim.html">Quiz's</a></li>
+      <li><a href="createquiz.html">Create Quiz</a></li>
+      <li><a href="BizKimiz.html">Create Question</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="Login.html">Logout</a></li>
+    </ul>
+  </div>
+</div>
+
+<div style="text-align: center;" class="mainlogos">
+  <img src="images/quiz-main-logo.jpg" class="infologo" width="50" height="350" style="max-width: 50%;>
+</div>
+
+<div class="content">
+  <br><br>
+  <h1 >&nbsp;&nbsp; Welcome The Quiz Time </h1>
+  <p>&nbsp;&nbsp;&nbsp; Quiz Time is a quiz site that aims to create quizzes in the software field,
+    share these quizzes with other users,
+    evaluate them according to the answers received, and learn and share information about the technologies used in the sector.</p>
+  <br><br>
+  <h2>Welcome <span class="username"></span></h2>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    const username = sessionStorage.getItem('username');
+    if (username) {
+      $('.username').text(username);
+    } else {
+      $('.username').text('Guest');
+    }
+  });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" href="styles/register.css">
+</head>
+<body>
+<h1>Register Page</h1>
+<form id="register-form" method="post" >
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" name="firstname" required>
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="lastname" required>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+    <input type="submit" value="Register">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    const serverUrl= 'http://localhost:8080'
+    $(document).ready(function() {
+        $('#register-form').submit(function(event) {
+            event.preventDefault();
+            const form = $(this);
+            const url = form.attr('action');
+            const method = form.attr('method');
+            const data = {
+                firstname: $('#firstname').val(),
+                lastname: $('#lastname').val(),
+                username: $('#username').val(),
+                password: $('#password').val(),
+                gender: $('#gender').val()
+            };
+            $.ajax({
+                url: serverUrl+'/user/register',
+                contentType:"application/json",
+                type: "POST",
+                data: JSON.stringify(data),
+                success: function(response) {
+                    console.log(response);
+                    alert('Register Successful');
+                    window.location.replace("login.html");
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    alert('Failed to Register');
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>

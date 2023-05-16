@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" type="text/css" href="styles/login.css">
+</head>
+<body>
+<h1>Login Page</h1>
+<form id="register-form" method="post" >
+
+
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <input type="submit" value="Login">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<script>
+  const serverUrl= 'http://localhost:8080'
+  $(document).ready(function() {
+    $('#register-form').submit(function(event) {
+      event.preventDefault();
+      const form = $(this);
+      const url = form.attr('action');
+      const method = form.attr('method');
+      const data = {
+        username: $('#username').val(),
+        password: $('#password').val(),
+
+      };
+      $.ajax({
+        url: serverUrl+'/user/login',
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(data),
+        success: function(response) {
+          console.log(response.userId);
+          sessionStorage.setItem("userId", response.userId);
+          $("#userId").text(response.userId);
+          sessionStorage.setItem("username", data.username);
+          alert('Login Successful');
+          window.location.replace("homepage.html");
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+          alert('Login Failed ');
+        }
+      });
+    });
+  });
+
+</script>
+</body>
+</html>

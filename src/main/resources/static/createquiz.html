@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Quiz Page</title>
+  <link rel="stylesheet" type="text/css" href="styles/createquiz.css">
+</head>
+<body>
+<h1>Create Quiz Page</h1>
+<form id="createQuiz-form" method="post" >
+  <label for="quizName">Quiz Name:</label>
+  <input type="text" id="quizName" name="quizName" required>
+  <label for="topicName">Topic Name:</label>
+  <input type="text" id="topicName" name="topicName" required>
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" required>
+
+  <input type="submit" value="Create Quiz">
+</form>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+  const userId=sessionStorage.getItem("userId")
+  const serverUrl= 'http://localhost:8080'
+  $(document).ready(function() {
+    $('#createQuiz-form').submit(function(event) {
+      event.preventDefault();
+      const form = $(this);
+      const url = form.attr('action');
+      const method = form.attr('method');
+      const data = {
+        quizName: $('#quizName').val(),
+        topicName: $('#topicName').val(),
+        description: $('#description').val(),
+
+
+      };
+      $.ajax({
+        url:serverUrl+'/quiz/create/'+userId,
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(data),
+        success: function(response) {
+          console.log(response);
+          alert('Quiz Successfully Created');
+          window.location.replace("homepage.html");
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+          alert('Failed To Creating Quiz');
+        }
+      });
+    });
+  });
+
+</script>
+</body>
+</html>
